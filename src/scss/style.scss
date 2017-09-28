@@ -1,0 +1,118 @@
+@import 'vendor/reset.scss';
+@import 'vendor/bootstrap/bootstrap-grid.scss';
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:300,400,600');
+
+// Variables
+$grey: #2d2d2d;
+$brand: #6a65e7;
+
+// Styles
+body {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 300;
+  color: $grey;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+.gradient {
+  background: #4776E6;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #8E54E9, #4776E6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #8E54E9, #4776E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+main {
+  margin-top: 30px;
+}
+
+header {
+  @extend .gradient;
+  nav {
+    ul {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 50px;
+      li {
+        a {
+          color: white;
+        }
+        &.burger {
+          color: white;
+          display: none;
+          cursor: pointer;
+        }
+        &.logo {
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          font-size: 18px;
+        }
+      }
+      .dropdown {
+        display: flex;
+        li {
+          font-size: 14px;
+          &:not(:first-of-type) {
+            margin-left: 15px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  header {
+    &.open {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      nav {
+        ul {
+          .dropdown {
+            display: flex;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            flex-direction: column;
+            text-align: center;
+            li {
+              margin: 10px 0;
+              font-size: 20px;
+              a {
+                text-decoration: underline;
+              }
+            }
+          }
+        }
+      }
+    }
+    nav {
+      ul {
+        li {
+          &.burger {
+            display: block;
+          }
+        }
+        .dropdown {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+@import 'partials/forms';
+@import 'partials/buttons';
+@import 'partials/errors';

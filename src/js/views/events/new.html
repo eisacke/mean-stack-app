@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <form ng-submit="eventsNew.create()" name="eventsNew.newForm">
+      <div class="group">
+        <div class="fancy">
+          <input type="text" id="title" ng-model="eventsNew.event.title">
+          <label for="title">Title</label>
+        </div>
+      </div>
+      <div class="group">
+        <div class="fancy">
+          <input type="text" id="description" ng-model="eventsNew.event.description">
+          <label for="description">Description</label>
+        </div>
+      </div>
+      <div class="group">
+        <div class="fancy">
+          <input type="date" id="date" ng-model="eventsNew.event.date">
+          <!-- <label for="date">Date</label> -->
+        </div>
+      </div>
+      <button>Add</button>
+    </form>
+  </div>
+</div>

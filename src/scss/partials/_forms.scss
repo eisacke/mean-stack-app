@@ -1,0 +1,62 @@
+form {
+  border: 2px solid $brand;
+  padding: 20px;
+
+  .fancy {
+    position: relative;
+    margin-top: 10px;
+    label {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transition: all 0.2s ease;
+      transform: translateY(-50%);
+    }
+    input {
+      &:focus, &.ng-not-empty {
+        + label {
+          font-size: 10px;
+          top: -10px;
+          transform: translateY(0);
+          color: $brand;
+        }
+      }
+    }
+  }
+
+  .group {
+    margin-bottom: 20px;
+  }
+
+  input {
+    &[type="text"], &[type="email"], &[type="password"] {
+      border: 0;
+      border-bottom: 1px solid $grey;
+      margin-bottom: 1px;
+      padding: 8px 0;
+      width: 100%;
+      &:focus {
+        border-bottom: 2px solid $brand;
+        outline: none;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  button {
+    width: 100%;
+    background-color: $brand;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 0;
+    padding: 10px 0;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    &:hover {
+      background-color: lighten($brand, 5%);
+    }
+  }
+}

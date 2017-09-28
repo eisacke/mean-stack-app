@@ -1,0 +1,7 @@
+<div class="row">
+  <div class="col-md-6" ng-repeat="event in eventsIndex.all">
+    <a ui-sref="eventsShow({ id: event.id })"><h2>{{ event.title }}</h2></a>
+    <p>{{ event.description }}</p>
+    <a ui-sref="usersShow({ id: event.createdBy.id })"><p>{{ event.createdBy.username }}</p></a>
+  </div>
+</div>

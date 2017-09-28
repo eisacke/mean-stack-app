@@ -1,0 +1,12 @@
+<a ui-sref="eventsShow({ id: event.id })"><h2>{{ eventsShow.event.title }}</h2></a>
+<p>{{ eventsShow.event.description }}</p>
+<a ui-sref="usersShow({ id: eventsShow.event.createdBy.id })"><p>{{ eventsShow.event.createdBy.username }}</p></a>
+
+<h2>Add location</h2>
+
+<form ng-submit="eventsShow.addLocation()">
+  <input type="text" google-places ng-model="eventsShow.placesData">
+  <input type="time" ng-model="eventsShow.location.time">
+  <button>Add</button>
+</form>
+{{ eventsShow.event.locations }}

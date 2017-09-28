@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="planitApp">
+<head>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Instagram Clone</title>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFfNu8nDLzIf63FfxzalUJVYrVIjGNjzI&libraries=places"></script>
+  <!-- inject:js -->
+  <!-- endinject -->
+  <!-- inject:css -->
+  <!-- endinject -->
+</head>
+<body ng-controller="MainCtrl as main">
+  <header ng-class="{ 'open': main.navIsOpen }">
+    <nav class="container">
+      <ul>
+        <li class="logo"><a ui-sref="eventsIndex">Planit</a></li>
+        <li ng-click="main.navIsOpen = !main.navIsOpen" class="burger">&#9776;</li>
+        <div class="dropdown">
+          <li><a ui-sref="eventsIndex" ui-sref-active="active">All events</a></li>
+          <li ng-if="main.isAuthenticated()"><a ui-sref="eventsNew" ui-sref-active="active">Add a event</a></li>
+          <li ng-if="!main.isAuthenticated()"><a ui-sref="login" ui-sref-active="active">Login</a></li>
+          <li ng-if="!main.isAuthenticated()"><a ui-sref="register" ui-sref-active="active">Register</a></li>
+          <li ng-click="main.logout()" ng-if="main.isAuthenticated()"><a href="#">Logout</a></li>
+        </div>
+      </ul>
+    </nav>
+  </header>
+  <div ng-if="main.message" class="message">
+    <div class="container">
+      <p>{{ main.message }}</p>
+    </div>
+  </div>
+  <div class="container">
+    <main ui-view></main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<div class="row">
+  <div class="col-12">
+    <h1>{{ usersShow.user.username }}'s events</h1>
+    <p ng-if="!usersShow.user.events.length">0 events</p>
+  </div>
+  <div class="col-md-6" ng-repeat="event in usersShow.user.events">
+    <a ui-sref="eventsShow({ id: event.id })"><h2>{{ event.title }}</h2></a>
+    <p>{{ event.description }}</p>
+  </div>
+</div>

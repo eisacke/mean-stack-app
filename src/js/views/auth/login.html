@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-6">
+    <form name="login.loginForm" ng-submit="login.submit()" novalidate>
+      <div class="group">
+        <div class="fancy">
+          <input type="email" name="email" id="email" ng-model="login.credentials.email" required>
+          <label for="email">Email</label>
+        </div>
+        <div ng-messages="login.loginForm.email.$error" role="alert" ng-show="(login.loginForm.$submitted || login.loginForm.email.$touched) && login.loginForm.email.$invalid" class="error">
+          <div class="form-error" ng-message="required">Please enter a value for this field.</div>
+          <div class="form-error" ng-message="email">This field must be a valid email address.</div>
+        </div>
+      </div>
+      <div class="group">
+        <div class="fancy">
+          <input type="password" name="password" id="password" ng-model="login.credentials.password" required>
+          <label for="password">Password</label>
+        </div>
+        <div ng-messages="login.loginForm.password.$error" role="alert" ng-show="(login.loginForm.$submitted || login.loginForm.password.$touched) && login.loginForm.password.$invalid" class="error">
+          <div class="form-error" ng-message="required">Please enter a value for this field.</div>
+        </div>
+      </div>
+
+      <button class="button">Login</button>
+    </form>
+  </div>
+</div>
