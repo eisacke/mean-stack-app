@@ -1,4 +1,4 @@
-## Planit
+# Planit
 
 MEAN stack application
 
