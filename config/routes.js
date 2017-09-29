@@ -2,6 +2,7 @@ const router = require('express').Router();
 const events = require('../controllers/events');
 const users = require('../controllers/users');
 const auth = require('../controllers/auth');
+const geonames = require('../controllers/geonames');
 const secureRoute = require('../lib/secureRoute');
 
 router.route('/events')
@@ -26,6 +27,9 @@ router.route('/login')
 
 router.route('/users/:id')
   .get(users.show);
+
+router.route('/code')
+  .get(geonames.getCountryCode);
 
 router.all('/*', (req, res) => res.notFound());
 

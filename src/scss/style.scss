@@ -164,6 +164,16 @@ header {
 @import 'partials/errors';
 @import 'partials/fonts';
 
+.event {
+  border: 1px solid $brand;
+  padding: 20px;
+  p {
+    &:last-of-type {
+      margin: 0;
+    }
+  }
+}
+
 .locations {
   .location {
     background-color: lighten($brand, 30%);

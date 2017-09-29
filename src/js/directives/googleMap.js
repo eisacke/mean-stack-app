@@ -30,13 +30,17 @@ function googleMap($window, mapStyles) {
       };
 
       const map = new $window.google.maps.Map(element[0], {
-        center: { lat: 51, lng: -0.12 },
-        zoom: 14,
+        center: { lat: 51.5074, lng: -0.1278 },
+        zoom: 12,
         styles: mapStyles,
         scrollwheel: false
       });
 
-      // scope.$watch('locations', addMarkers);
+      function centerMapOnUser() {
+        if (navigator.geolocation) navigator.geolocation.getCurrentPosition((position) => {
+          map.setCenter({ lat: position.coords.latitude, lng: position.coords.longitude });
+        });
+      }
 
       scope.$watch('locations', addMarkers, true);
       scope.$watch('selectedLocation', findMarkerToHighlight);
@@ -68,6 +72,7 @@ function googleMap($window, mapStyles) {
       }
 
       function fitToBounds (){
+        if(!markers.length) return centerMapOnUser();
         if(markers.length > 1) return map.fitBounds(bounds);
         map.setCenter(markers[0].position);
         map.setZoom(16);
