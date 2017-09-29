@@ -3,7 +3,7 @@
 <head>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Instagram Clone</title>
+  <title>P L A N I T</title>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFfNu8nDLzIf63FfxzalUJVYrVIjGNjzI&libraries=places"></script>
   <!-- inject:js -->
   <!-- endinject -->
@@ -14,7 +14,7 @@
   <header ng-class="{ 'open': main.navIsOpen }">
     <nav class="container">
       <ul>
-        <li class="logo"><a ui-sref="eventsIndex">Planit</a></li>
+        <li class="logo"><a ui-sref="eventsIndex" class="icon-planet">Planit</a></li>
         <li ng-click="main.navIsOpen = !main.navIsOpen" class="burger">&#9776;</li>
         <div class="dropdown">
           <li><a ui-sref="eventsIndex" ui-sref-active="active">All events</a></li>
@@ -27,9 +27,7 @@
     </nav>
   </header>
   <div ng-if="main.message" class="message">
-    <div class="container">
-      <p>{{ main.message }}</p>
-    </div>
+    <div class="container">{{ main.message }}</div>
   </div>
   <div class="container">
     <main ui-view></main>

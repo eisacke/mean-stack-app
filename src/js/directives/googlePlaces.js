@@ -16,7 +16,6 @@ function googlePlaces($window) {
 
       autocomplete.addListener('place_changed', () => {
         const place = autocomplete.getPlace();
-        console.log(place);
         model.$setViewValue(place);
       });
     }

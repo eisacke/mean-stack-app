@@ -1,12 +1,35 @@
-<a ui-sref="eventsShow({ id: event.id })"><h2>{{ eventsShow.event.title }}</h2></a>
-<p>{{ eventsShow.event.description }}</p>
-<a ui-sref="usersShow({ id: eventsShow.event.createdBy.id })"><p>{{ eventsShow.event.createdBy.username }}</p></a>
-
-<h2>Add location</h2>
-
-<form ng-submit="eventsShow.addLocation()">
-  <input type="text" google-places ng-model="eventsShow.placesData">
-  <input type="time" ng-model="eventsShow.location.time">
-  <button>Add</button>
-</form>
-{{ eventsShow.event.locations }}
+<div class="row">
+  <div class="col-md-6">
+    <h1 class="is-1">{{ eventsShow.event.title }}</h1>
+    <p>{{ eventsShow.event.description }}</p>
+    <p class="small">
+      Created by: <a ui-sref="usersShow({ id: eventsShow.event.createdBy.id })">{{ eventsShow.event.createdBy.username }}</a>
+    </p>
+    <google-map locations="eventsShow.event.locations" selected-location="eventsShow.selectedLocation"></google-map>
+  </div>
+  <div class="col-md-6">
+    <div class="locations gap">
+      <div class="location" ng-repeat="location in eventsShow.event.locations | orderBy: 'time'" ng-click="eventsShow.selectLocation(location)" ng-class="{ 'selected': location === eventsShow.selectedLocation }">
+        <div class="location__index">{{ $index + 1 }}</div>
+        <div class="location__info">
+          <h2 class="is-2">{{ location.name }}</h2>
+          <p>{{ location.address }}</p>
+          <p><strong>{{ location.time | date: "shortTime" | lowercase }}</strong></p>
+        </div>
+        <div class="delete" ng-if="main.isAuthenticated() && eventsShow.event.createdBy.id === main.currentUserId" ng-click="eventsShow.deleteLocation(location)"></div>
+      </div>
+    </div>
+    <button class="button is-full-width" ng-click="eventsShow.toggleForm()" ng-if="!eventsShow.formIsVisible">Add Location +</button>
+    <form ng-submit="eventsShow.addLocation()" class="gap" ng-if="eventsShow.formIsVisible">
+      <div class="group">
+        <input type="text" google-places ng-model="eventsShow.placesData">
+      </div>
+      <div class="group">
+        <label>Time</label>
+        <input type="time" ng-model="eventsShow.location.time">
+      </div>
+      <button>Add</button>
+      <button type="button" ng-click="eventsShow.toggleForm()">Cancel</button>
+    </form>
+  </div>
+</div>

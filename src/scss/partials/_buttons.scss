@@ -1,0 +1,19 @@
+.button {
+  background-color: $brand;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 0;
+  padding: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  &:hover {
+    background-color: lighten($brand, 5%);
+  }
+}
+
+.is-full-width {
+  width: 100%;
+}

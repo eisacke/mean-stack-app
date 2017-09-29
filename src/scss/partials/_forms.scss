@@ -11,6 +11,7 @@ form {
       left: 0;
       transition: all 0.2s ease;
       transform: translateY(-50%);
+      font-size: 14px;
     }
     input {
       &:focus, &.ng-not-empty {
@@ -30,6 +31,7 @@ form {
 
   input {
     &[type="text"], &[type="email"], &[type="password"] {
+      font-size: 14px;
       border: 0;
       border-bottom: 1px solid $grey;
       margin-bottom: 1px;
@@ -44,19 +46,10 @@ form {
   }
 
   button {
+    @extend .button;
     width: 100%;
-    background-color: $brand;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border: 0;
-    padding: 10px 0;
-    font-weight: 600;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    &:hover {
-      background-color: lighten($brand, 5%);
+    &:not(:last-of-type) {
+      margin-bottom: 10px;
     }
   }
 }

@@ -19,6 +19,42 @@ body {
 
 a {
   text-decoration: none;
+  color: $brand;
+}
+
+strong {
+  font-weight: bold;
+}
+
+p {
+  margin: 0 0 10px;
+  &.small {
+    font-size: 14px;
+  }
+}
+
+.title-styles {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.is-1 {
+  font-size: 22px;
+  @extend .title-styles;
+  margin-bottom: 10px;
+}
+
+.is-2 {
+  font-size: 18px;
+  @extend .title-styles;
+  margin-bottom: 10px;
+}
+
+.is-3 {
+  font-size: 16px;
+  @extend .title-styles;
+  margin-bottom: 10px;
 }
 
 .gradient {
@@ -28,7 +64,7 @@ a {
 }
 
 main {
-  margin-top: 30px;
+  margin: 30px 0;
 }
 
 header {
@@ -53,6 +89,16 @@ header {
           text-transform: uppercase;
           letter-spacing: 2px;
           font-size: 18px;
+          .icon-planet {
+            position: relative;
+            padding-left: 30px;
+            &:before {
+              position: absolute;
+              left: 0;
+              top: -4px;
+              font-size: 25px;
+            }
+          }
         }
       }
       .dropdown {
@@ -113,6 +159,86 @@ header {
   }
 }
 
-@import 'partials/forms';
 @import 'partials/buttons';
+@import 'partials/forms';
 @import 'partials/errors';
+@import 'partials/fonts';
+
+.locations {
+  .location {
+    background-color: lighten($brand, 30%);
+    padding: 15px 35px 15px 10px;
+    border: 1px solid lighten($brand, 20%);
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+    &.selected {
+      border: 1px solid $brand;
+      background-color: lighten($brand, 25%);
+    }
+    &__index {
+      background-color: white;
+      flex: 0 0 30px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      margin-right: 10px;
+      border: 1px solid $grey;
+      font-weight: bold;
+    }
+    .delete {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      @extend .icon-delete;
+      display: none;
+      height: 20px;
+      width: 20px;
+      &:before {
+        color: $grey;
+        transition: color 0.2s ease;
+      }
+      &:hover {
+        &:before {
+          color: lighten($grey, 15%);
+        }
+      }
+    }
+    &:hover {
+      .delete {
+        display: block;
+      }
+    }
+    &:not(:last-of-type) {
+      margin-bottom: 5px;
+    }
+    p {
+      &:last-of-type {
+        margin: 0;
+      }
+    }
+  }
+}
+
+.map {
+  padding-top: 100%;
+}
+
+.gap {
+  margin-bottom: 20px;
+}
+
+.row:not(:last-of-type) {
+  margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 767px) {
+  [class*="col-md"] {
+    margin-bottom: 20px;
+  }
+
+  .row:not(:last-of-type) {
+    margin-bottom: 0;
+  }
+}

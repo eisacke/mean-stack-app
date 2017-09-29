@@ -51,29 +51,41 @@ function EventsShowCtrl(Event, $state, Location) {
       lat: vm.placesData.geometry.location.lat(),
       lng: vm.placesData.geometry.location.lng()
     };
-    
+
     Location
       .save({ eventId: vm.event.id }, location)
       .$promise
       .then((location) => {
         vm.event.locations.push(location);
-        vm.newLocation = {};
+        vm.location = {};
+        vm.placesData = null;
+        vm.selectedLocation = null;
       });
   }
 
   vm.addLocation = addLocation;
 
-  // function deleteLocation(location) {
-  //   Location
-  //     .delete({ eventId: vm.event.id, id: location.id })
-  //     .$promise
-  //     .then(() => {
-  //       // locate the location in the array of locations
-  //       const index = vm.event.locations.indexOf(location);
-  //       // splice it from the array, take 1 element starting from that index
-  //       vm.event.locations.splice(index, 1);
-  //     });
-  // }
-  //
-  // vm.deleteLocation = deleteLocation;
+  function deleteLocation(location) {
+    Location
+      .delete({ eventId: vm.event.id, id: location.id })
+      .$promise
+      .then(() => {
+        const index = vm.event.locations.indexOf(location);
+        vm.event.locations.splice(index, 1);
+      });
+  }
+
+  vm.deleteLocation = deleteLocation;
+
+  function selectLocation(location) {
+    vm.selectedLocation = location;
+  }
+
+  vm.selectLocation = selectLocation;
+
+  function toggleForm() {
+    vm.formIsVisible = !vm.formIsVisible;
+  }
+
+  vm.toggleForm = toggleForm;
 }
