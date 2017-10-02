@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>P L A N I T 🚀</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>PLANIT</h1>
+      </header>
+      <p>Hey <%= user.name %>, you've been invited to an event by <a href="http://localhost:7000/users/<%= event.createdBy.id %>"><%= event.createdBy.username %></a>!</p>
+
+      <h2><%= event.title %></h2>
+      <p><%= event.description %></p>
+      <p><%= event.date %></p>
+
+      <ul>
+        <% event.locations.forEach((location) => { %>
+          <li><%= location.name %></li>
+        <% }) %>
+      </ul>
+
+      <p>Click <a href="http://localhost:7000/events/<%= event.id %>">here</a> to view the details on <a href="http://localhost:7000" class="brand">PLANIT</a></p>
+
+    </main>
+  </body>
+</html>

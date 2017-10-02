@@ -5,6 +5,7 @@ angular
 Event.$inject = ['$resource'];
 function Event($resource) {
   return new $resource('/api/events/:id', { id: '@id' }, {
-    update: { method: 'PUT' }
+    update: { method: 'PUT' },
+    sendInvites: { method: 'POST', url: '/api/events/:id/send'}
   });
 }

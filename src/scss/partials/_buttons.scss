@@ -9,6 +9,7 @@
   letter-spacing: 1px;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  outline: none;
   &:hover {
     background-color: lighten($brand, 5%);
   }

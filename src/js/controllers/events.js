@@ -28,8 +28,8 @@ function EventsNewCtrl(Event, $state) {
   vm.create = eventsCreate;
 }
 
-EventsShowCtrl.$inject = ['Event', '$state', 'Location'];
-function EventsShowCtrl(Event, $state, Location) {
+EventsShowCtrl.$inject = ['Event', '$state', 'Location', 'Invitee'];
+function EventsShowCtrl(Event, $state, Location, Invitee) {
   const vm = this;
   vm.event = Event.get($state.params);
 
@@ -83,9 +83,51 @@ function EventsShowCtrl(Event, $state, Location) {
 
   vm.selectLocation = selectLocation;
 
-  function toggleForm() {
-    vm.formIsVisible = !vm.formIsVisible;
+  function toggleLocationForm() {
+    vm.locationFormIsVisible = !vm.locationFormIsVisible;
   }
 
-  vm.toggleForm = toggleForm;
+  vm.toggleLocationForm = toggleLocationForm;
+
+  function toggleInviteeForm() {
+    vm.inviteeFormIsVisible = !vm.inviteeFormIsVisible;
+  }
+
+  vm.toggleInviteeForm = toggleInviteeForm;
+
+  function addInvitee() {
+    Invitee
+      .save({ eventId: vm.event.id }, vm.invitee)
+      .$promise
+      .then((invitee) => {
+        vm.event.invitees.push(invitee);
+        vm.invitee = {};
+        vm.inviteeFormIsVisible = false;
+      });
+  }
+
+  vm.addInvitee = addInvitee;
+
+  function deleteInvitee(invitee) {
+    Invitee
+      .delete({ eventId: vm.event.id, id: invitee.id })
+      .$promise
+      .then(() => {
+        const index = vm.event.invitees.indexOf(invitee);
+        vm.event.invitees.splice(index, 1);
+      });
+  }
+
+  vm.deleteInvitee = deleteInvitee;
+
+  function sendInvites() {
+    Event
+      .sendInvites({ id: vm.event.id })
+      .$promise
+      .then(() => {
+        vm.invitesSent = true;
+      });
+  }
+
+  vm.sendInvites = sendInvites;
 }

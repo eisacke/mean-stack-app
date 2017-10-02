@@ -21,17 +21,46 @@
         <div class="delete" ng-if="main.isAuthenticated() && eventsShow.event.createdBy.id === main.currentUserId" ng-click="eventsShow.deleteLocation(location)"></div>
       </div>
     </div>
-    <button class="button is-full-width" ng-click="eventsShow.toggleForm()" ng-if="!eventsShow.formIsVisible">Add Location +</button>
-    <form ng-submit="eventsShow.addLocation()" class="gap" ng-if="eventsShow.formIsVisible">
-      <div class="group">
-        <input type="text" google-places ng-model="eventsShow.placesData">
-      </div>
-      <div class="group">
-        <label>Time</label>
-        <input type="time" ng-model="eventsShow.location.time">
-      </div>
-      <button>Add</button>
-      <button type="button" ng-click="eventsShow.toggleForm()">Cancel</button>
-    </form>
+    <div class="gap">
+      <button class="button is-full-width" ng-click="eventsShow.toggleLocationForm()" ng-if="!eventsShow.locationFormIsVisible">Add Location +</button>
+      <form ng-submit="eventsShow.addLocation()" class="gap" ng-if="eventsShow.locationFormIsVisible">
+        <div class="group">
+          <input type="text" google-places ng-model="eventsShow.placesData">
+        </div>
+        <div class="group">
+          <label>Time</label>
+          <input type="time" ng-model="eventsShow.location.time">
+        </div>
+        <button>Add</button>
+        <button type="button" ng-click="eventsShow.toggleLocationForm()">Cancel</button>
+      </form>
+    </div>
+    <div class="invitees gap">
+      <h2 class="is-2">Invitees</h2>
+      <ul>
+        <li ng-repeat="invitee in eventsShow.event.invitees">{{ invitee.name }} <button ng-click="eventsShow.deleteInvitee(invitee)"></button></li>
+      </ul>
+    </div>
+    <div class="gap--small">
+      <button class="button is-full-width" ng-click="eventsShow.toggleInviteeForm()" ng-if="!eventsShow.inviteeFormIsVisible">Add Invitee +</button>
+      <form ng-submit="eventsShow.addInvitee()" class="gap" ng-if="eventsShow.inviteeFormIsVisible">
+        <div class="group">
+          <div class="fancy">
+            <input type="text" id="name" ng-model="eventsShow.invitee.name">
+            <label for="name">Name</label>
+          </div>
+        </div>
+        <div class="group">
+          <div class="fancy">
+            <input type="email" id="email" ng-model="eventsShow.invitee.email">
+            <label for="email">Email</label>
+          </div>
+        </div>
+        <button>Add</button>
+        <button type="button" ng-click="eventsShow.toggleInviteeForm()">Cancel</button>
+      </form>
+    </div>
+    <button class="button is-full-width" ng-click="eventsShow.sendInvites()" ng-if="!eventsShow.invitesSent">Send Invites</button>
+    <p ng-if="eventsShow.invitesSent">Invites Sent</p>
   </div>
 </div>

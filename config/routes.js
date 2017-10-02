@@ -3,6 +3,7 @@ const events = require('../controllers/events');
 const users = require('../controllers/users');
 const auth = require('../controllers/auth');
 const geonames = require('../controllers/geonames');
+const invites = require('../controllers/invites');
 const secureRoute = require('../lib/secureRoute');
 
 router.route('/events')
@@ -18,6 +19,15 @@ router.route('/events/:id/locations')
 
 router.route('/events/:id/locations/:locationId')
   .delete(secureRoute, events.deleteLocation);
+
+router.route('/events/:id/invitees')
+  .post(secureRoute, events.addInvitee);
+
+router.route('/events/:id/invitees/:inviteeId')
+  .delete(secureRoute, events.deleteInvitee);
+
+router.route('/events/:id/send')
+  .post(invites.send);
 
 router.route('/register')
   .post(auth.register);

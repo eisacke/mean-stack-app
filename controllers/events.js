@@ -47,9 +47,6 @@ function deleteRoute(req, res, next) {
 }
 
 function addLocationRoute(req, res, next) {
-
-  req.body.createdBy = req.currentUser;
-
   Event
     .findById(req.params.id)
     .exec()
@@ -81,11 +78,45 @@ function deleteLocationRoute(req, res, next) {
     .catch(next);
 }
 
+function addInviteeRoute(req, res, next) {
+  Event
+    .findById(req.params.id)
+    .exec()
+    .then((event) => {
+      if(!event) return res.notFound();
+
+      const invitee = event.invitees.create(req.body);
+      event.invitees.push(invitee);
+
+      return event.save()
+        .then(() => res.json(invitee));
+    })
+    .catch(next);
+}
+
+function deleteInviteeRoute(req, res, next) {
+  Event
+    .findById(req.params.id)
+    .exec()
+    .then((event) => {
+      if(!event) return res.notFound();
+
+      const invitee = event.invitees.id(req.params.inviteeId);
+      invitee.remove();
+
+      return event.save();
+    })
+    .then(() => res.status(204).end())
+    .catch(next);
+}
+
 module.exports = {
   index: indexRoute,
   create: createRoute,
   show: showRoute,
   delete: deleteRoute,
   addLocation: addLocationRoute,
-  deleteLocation: deleteLocationRoute
+  deleteLocation: deleteLocationRoute,
+  addInvitee: addInviteeRoute,
+  deleteInvitee: deleteInviteeRoute
 };
