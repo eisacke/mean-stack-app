@@ -5,7 +5,8 @@ const async = require('async');
 const EmailTemplate = require('email-templates').EmailTemplate;
 const inviteTemplate = path.join(__dirname, '..', 'templates', 'invite');
 const invite = new EmailTemplate(inviteTemplate);
-const locals = {};
+const { url } = require('../config/environment');
+const locals = { url };
 
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
