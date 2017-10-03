@@ -28,8 +28,8 @@ function EventsNewCtrl(Event, $state) {
   vm.create = eventsCreate;
 }
 
-EventsShowCtrl.$inject = ['Event', '$state', 'Location', 'Invitee'];
-function EventsShowCtrl(Event, $state, Location, Invitee) {
+EventsShowCtrl.$inject = ['Event', '$state', '$auth', 'Location', 'Invitee'];
+function EventsShowCtrl(Event, $state, $auth, Location, Invitee) {
   const vm = this;
   vm.event = Event.get($state.params);
 
@@ -125,9 +125,21 @@ function EventsShowCtrl(Event, $state, Location, Invitee) {
       .sendInvites({ id: vm.event.id })
       .$promise
       .then(() => {
-        vm.invitesSent = true;
+        vm.event.invitees.map(invitee => invitee.invited = true);
       });
   }
 
   vm.sendInvites = sendInvites;
+
+  function ownedByCurrentUser() {
+    return $auth.isAuthenticated() && vm.event.$resolved && (vm.event.createdBy.id === $auth.getPayload().userId);
+  }
+
+  vm.ownedByCurrentUser = ownedByCurrentUser;
+
+  function allInvitesSent() {
+    return vm.event.$resolved && vm.event.invitees.every(invitee => invitee.invited);
+  }
+
+  vm.allInvitesSent = allInvitesSent;
 }

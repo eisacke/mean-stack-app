@@ -13,6 +13,13 @@
   &:hover {
     background-color: lighten($brand, 5%);
   }
+  &:disabled {
+    &:hover {
+      background-color: lighten($brand, 10%);
+    }
+    background-color: lighten($brand, 10%);
+    cursor: default;
+  }
 }
 
 .is-full-width {

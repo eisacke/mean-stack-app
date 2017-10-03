@@ -175,16 +175,28 @@ header {
 }
 
 .invitees {
-  ul {
-    li {
-      button {
-        @extend .icon-delete;
-        border: none;
-        padding: 0;
-        background-color: transparent;
-        cursor: pointer;
-      }
+  .invitee {
+    display: flex;
+    align-items: center;
+    .name {
+      margin-right: 5px;
     }
+    button {
+      @extend .icon-delete;
+      border: none;
+      padding: 0;
+      background-color: transparent;
+      cursor: pointer;
+    }
+    .sent {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      background-color: lighten($brand, 30%);
+      padding: 2px 4px;
+      border-radius: 2px;
+    }
+    @extend .gap--small;
   }
 }
 

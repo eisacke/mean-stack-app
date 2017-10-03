@@ -3,8 +3,8 @@ const nodemailer = require('nodemailer');
 const path = require('path');
 const async = require('async');
 const EmailTemplate = require('email-templates').EmailTemplate;
-const templateDir = path.join(__dirname, '..', 'templates', 'invite');
-const invite = new EmailTemplate(templateDir);
+const inviteTemplate = path.join(__dirname, '..', 'templates', 'invite');
+const invite = new EmailTemplate(inviteTemplate);
 const locals = {};
 
 const transporter = nodemailer.createTransport({
@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-function sendInvites(req, res, next) {
+function findEvent(req, res, next) {
   Event
     .findById(req.params.id)
     .populate('createdBy')
@@ -24,33 +24,49 @@ function sendInvites(req, res, next) {
       if(!event) return res.notFound();
       locals.event = event;
 
-      loopInvitees(event);
+      sendInvites();
       return res.end();
     })
     .catch(next);
 }
 
-function loopInvitees(event) {
-  async.each(event.invitees, sendInvite, handleError);
+function sendInvites() {
+  async.each(locals.event.invitees, sendInvite, handleError);
 }
 
-function sendInvite(user, next) {
-  locals.user = user;
+function sendInvite(invitee, next) {
+  if(invitee.invited) return false;
+
+  locals.invitee = invitee;
   invite.render(locals, (err, result) => {
     if (err) return next(err);
 
     transporter.sendMail({
       from: '"P L A N I T 🚀" <eventplanapp@gmail.com>',
-      to: locals.user.email,
-      subject: `${locals.user.name}, you're invited!`,
+      to: locals.invitee.email,
+      subject: `${locals.invitee.name}, you're invited!`,
       html: result.html,
       text: result.text
     }, (err) => {
       if (err) return handleError(err);
-      console.log('Email Sent');
+      console.log(`Email sent to ${invitee.name}`);
+      updateUser(invitee);
     });
 
   });
+}
+
+function updateUser(invitee) {
+  Event
+    .findById(locals.event.id)
+    .exec()
+    .then(event => {
+      if(!event) return false;
+
+      const inviteeToUpdate = event.invitees.id(invitee.id);
+      inviteeToUpdate.invited = true;
+      return event.save();
+    });
 }
 
 function handleError(err) {
@@ -58,5 +74,5 @@ function handleError(err) {
 }
 
 module.exports = {
-  send: sendInvites
+  send: findEvent
 };

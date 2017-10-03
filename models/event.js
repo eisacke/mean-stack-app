@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const inviteeSchema = mongoose.Schema({
   name: String,
-  email: String
+  email: String,
+  invited: { type: Boolean, default: false }
 });
 
 const commentSchema = new mongoose.Schema({

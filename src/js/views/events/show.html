@@ -3,6 +3,7 @@
     <div class="gap">
       <h1 class="is-1">{{ eventsShow.event.title }}</h1>
       <p>{{ eventsShow.event.description }}</p>
+      <p>{{ eventsShow.event.date | date: 'fullDate' }}</p>
       <p class="small">
         Created by: <a ui-sref="usersShow({ id: eventsShow.event.createdBy.id })">{{ eventsShow.event.createdBy.username }}</a>
       </p>
@@ -21,7 +22,7 @@
         <div class="delete" ng-if="main.isAuthenticated() && eventsShow.event.createdBy.id === main.currentUserId" ng-click="eventsShow.deleteLocation(location)"></div>
       </div>
     </div>
-    <div class="gap">
+    <div class="gap" ng-if="eventsShow.ownedByCurrentUser()">
       <button class="button is-full-width" ng-click="eventsShow.toggleLocationForm()" ng-if="!eventsShow.locationFormIsVisible">Add Location +</button>
       <form ng-submit="eventsShow.addLocation()" class="gap" ng-if="eventsShow.locationFormIsVisible">
         <div class="group">
@@ -37,11 +38,16 @@
     </div>
     <div class="invitees gap">
       <h2 class="is-2">Invitees</h2>
-      <ul>
-        <li ng-repeat="invitee in eventsShow.event.invitees">{{ invitee.name }} <button ng-click="eventsShow.deleteInvitee(invitee)"></button></li>
-      </ul>
+      <div class="row">
+        <div class="col-sm-6 invitee" ng-repeat="invitee in eventsShow.event.invitees">
+          <span class="name">{{ invitee.name }}</span>
+          <!-- <button ng-click="eventsShow.deleteInvitee(invitee)" ng-if="eventsShow.ownedByCurrentUser()"></button> -->
+          <button ng-click="eventsShow.deleteInvitee(invitee)" ng-if="!invitee.invited && eventsShow.ownedByCurrentUser()"></button>
+          <span class="sent" ng-if="invitee.invited && eventsShow.ownedByCurrentUser()">Invite sent</span>
+        </div>
+      </div>
     </div>
-    <div class="gap--small">
+    <div class="gap--small" ng-if="eventsShow.ownedByCurrentUser()">
       <button class="button is-full-width" ng-click="eventsShow.toggleInviteeForm()" ng-if="!eventsShow.inviteeFormIsVisible">Add Invitee +</button>
       <form ng-submit="eventsShow.addInvitee()" class="gap" ng-if="eventsShow.inviteeFormIsVisible">
         <div class="group">
@@ -60,7 +66,6 @@
         <button type="button" ng-click="eventsShow.toggleInviteeForm()">Cancel</button>
       </form>
     </div>
-    <button class="button is-full-width" ng-click="eventsShow.sendInvites()" ng-if="!eventsShow.invitesSent">Send Invites</button>
-    <p ng-if="eventsShow.invitesSent">Invites Sent</p>
+    <button class="button is-full-width" ng-click="eventsShow.sendInvites()" ng-if="eventsShow.ownedByCurrentUser()" ng-disabled="eventsShow.allInvitesSent()">Send Invites</button>
   </div>
 </div>

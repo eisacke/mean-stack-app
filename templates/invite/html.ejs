@@ -10,11 +10,11 @@
       <header>
         <h1>PLANIT</h1>
       </header>
-      <p>Hey <%= user.name %>, you've been invited to an event by <a href="http://localhost:7000/users/<%= event.createdBy.id %>"><%= event.createdBy.username %></a>!</p>
+      <p>Hey <%= invitee.name %>, you've been invited to an event by <a href="http://localhost:7000/users/<%= event.createdBy.id %>"><%= event.createdBy.username %></a>!</p>
 
       <h2><%= event.title %></h2>
       <p><%= event.description %></p>
-      <p><%= event.date %></p>
+      <p><%= event.date.toDateString() %></p>
 
       <ul>
         <% event.locations.forEach((location) => { %>
