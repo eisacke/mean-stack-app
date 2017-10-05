@@ -33,6 +33,22 @@ function showRoute(req, res, next) {
     .catch(next);
 }
 
+function updateRoute(req, res, next) {
+  req.body.createdBy = req.body.createdBy.id;
+  
+  Event
+    .findById(req.params.id)
+    .exec()
+    .then((event) => {
+      if(!event) return res.notFound();
+
+      event = Object.assign(event, req.body);
+      return event.save();
+    })
+    .then(event => res.json(event))
+    .catch(next);
+}
+
 function deleteRoute(req, res, next) {
   Event
     .findById(req.params.id)
@@ -114,6 +130,7 @@ module.exports = {
   index: indexRoute,
   create: createRoute,
   show: showRoute,
+  update: updateRoute,
   delete: deleteRoute,
   addLocation: addLocationRoute,
   deleteLocation: deleteLocationRoute,

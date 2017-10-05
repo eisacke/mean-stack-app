@@ -4,7 +4,7 @@ const path = require('path');
 const async = require('async');
 const EmailTemplate = require('email-templates').EmailTemplate;
 const inviteTemplate = path.join(__dirname, '..', 'templates', 'invite');
-const invite = new EmailTemplate(inviteTemplate);
+let invite = null;
 const { url } = require('../config/environment');
 const locals = { url };
 
@@ -32,6 +32,7 @@ function findEvent(req, res, next) {
 }
 
 function sendInvites() {
+  invite = new EmailTemplate(inviteTemplate);
   async.each(locals.event.invitees, sendInvite, handleError);
 }
 

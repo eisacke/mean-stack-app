@@ -13,6 +13,10 @@ body {
   color: $grey;
 }
 
+input, button {
+  font-family: 'Work Sans', sans-serif;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -163,6 +167,7 @@ header {
 @import 'partials/forms';
 @import 'partials/errors';
 @import 'partials/fonts';
+@import 'partials/editable';
 
 .event {
   border: 1px solid $brand;

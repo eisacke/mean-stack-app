@@ -1,0 +1,75 @@
+.editable {
+  &.editing {
+    > * {
+      > *:first-child {
+        display: inline-block;
+        vertical-align: top;
+        display: none;
+      }
+    }
+    input {
+      // display: block;
+      display: inline-block;
+      vertical-align: top;
+    }
+    button {
+      @extend .icon-done;
+    }
+  }
+  > * {
+    > *:first-child {
+      display: inline-block;
+      &.is-1 {
+        margin-bottom: 12px;
+      }
+    }
+  }
+  button {
+    @extend .icon-edit;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    padding: 0;
+    height: 22px;
+    font-size: 14px;
+    margin-right: 5px;
+    &:focus {
+      outline: none;
+    }
+  }
+  input {
+    display: none;
+    &.is-h1-input {
+      @extend .is-1;
+      border: 0;
+      padding: 0;
+      border-bottom: 1px solid $grey;
+      margin-top: -2px;
+      &:focus {
+        outline: none;
+        border-bottom: 2px solid $grey;
+        margin-bottom: 9px;
+      }
+    }
+  }
+  button {
+    vertical-align: top;
+    display: inline-block;
+  }
+}
+
+
+// .editable {
+//   > * {
+//     > *:first-child {
+//       // @extend .icon-planet;
+//       // position: relative;
+//       // display: inline-block;
+//       // padding-right: 30px;
+//       // &:before {
+//       //   position: absolute;
+//       //   right: 0;
+//       // }
+//     }
+//   }
+// }

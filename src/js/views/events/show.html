@@ -1,7 +1,10 @@
 <div class="row">
   <div class="col-md-6">
     <div class="gap">
-      <h1 class="is-1">{{ eventsShow.event.title }}</h1>
+      <editable can-edit="eventsShow.event.createdBy.id === main.currentUserId" update="eventsShow.update()">
+        <h1 class="is-1">{{ eventsShow.event.title }}</h1>
+        <input type="text" ng-model="eventsShow.event.title" class="is-h1-input">
+      </editable>
       <p>{{ eventsShow.event.description }}</p>
       <p>{{ eventsShow.event.date | date: 'fullDate' }}</p>
       <p class="small">
@@ -29,7 +32,6 @@
           <input type="text" google-places ng-model="eventsShow.placesData">
         </div>
         <div class="group">
-          <label>Time</label>
           <input type="time" ng-model="eventsShow.location.time">
         </div>
         <button>Add</button>

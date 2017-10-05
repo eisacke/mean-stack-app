@@ -142,4 +142,10 @@ function EventsShowCtrl(Event, $state, $auth, Location, Invitee) {
   }
 
   vm.allInvitesSent = allInvitesSent;
+
+  function updateEvent() {
+    Event.update(vm.event);
+  }
+
+  vm.update = updateEvent;
 }

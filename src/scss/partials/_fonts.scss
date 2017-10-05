@@ -30,3 +30,13 @@
   @extend .icon;
   content:'\0043';
 }
+
+.icon-edit:before {
+  @extend .icon;
+  content:'\0044';
+}
+
+.icon-done:before {
+  @extend .icon;
+  content:'\0045';
+}
